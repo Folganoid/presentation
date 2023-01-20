@@ -1,0 +1,1841 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+<!-- 1 -->
+				<section>
+					<img src="https://herve.beraud.io/images/blog/rabbitmq.png" alt='logo' />
+				</section>
+				<section>
+					<h1>2007</h1>
+					<img style='height: 20vh;' src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Erlang_logo.svg/1024px-Erlang_logo.svg.png" alt='logo' />
+				</section>
+<!-- 2 -->
+				<section>
+					<b style='font-size: 72px;'>RabbitMQ</b>
+					<ul>
+						<li>Message broker that implements Advanced Message Queing Protocol (AMQP)</li>
+						<li>AMQP standardizes messaging using Producers, Broker and Consumers</li>
+						<li>Messaging increases loose coupling and scalability</li>
+					</ul>
+				</section>
+<!-- 3 -->
+				<section data-auto-animate> 
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<div style='height: 100px; width: 200px; background-color: green; border-radius: 50%;'>
+							<p>Consumer</p>
+						</div>
+					</div>
+				</section>
+<!-- 4 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<img style='height: 30px; margin: 0 0 0 40px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: brown;'>
+							<p>Queue</p>
+						</div>
+						<img style='height: 30px; margin: 0 20px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: green; border-radius: 50%;'>
+							<p>Consumer</p>
+						</div>
+					</div>
+				</section>
+<!-- 5 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<img style='height: 30px; margin: 0 0 0 40px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: brown;'>
+							<p>Queue</p>
+						</div>
+						<img style='height: 30px; margin: 0 20px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: green; border-radius: 50%;'>
+							<p>Consumer</p>
+						</div>
+						<p style='height: 70px; width: 100px; position: absolute; left: 50px; top: 100px; color: red;'>
+						Message</p>
+						<h2 style='position: absolute; top: -100px;'>Publishing</h2>
+					</div>
+				</section>
+<!-- 6 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<img style='height: 30px; margin: 0 0 0 40px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: brown;'>
+							<p>Queue</p>
+						</div>
+						<img style='height: 30px; margin: 0 20px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: green; border-radius: 50%;'>
+							<p>Consumer</p>
+						</div>
+						<p style='height: 70px; width: 100px; position: fixed; left: 250px; top: 100px; color: red;'>Message</p>
+						<h2 style='position: absolute; top: -100px;'>Publishing</h2>
+					</div>
+				</section>
+<!-- 7 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<img style='height: 30px; margin: 0 0 0 40px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: brown;'>
+							<p>Queue</p>
+						</div>
+						<img style='height: 30px; margin: 0 20px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: green; border-radius: 50%;'>
+							<p>Consumer</p>
+						</div>
+						<p style='height: 70px; width: 100px; position: fixed; left: 510px; top: 100px; color: red;'>Message</p>
+						<h2 style='position: absolute; top: -100px;'>Publishing</h2>
+					</div>
+				</section>
+<!-- 8 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<img style='height: 30px; margin: 0 0 0 40px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: brown;'>
+							<p>Queue</p>
+						</div>
+						<img style='height: 30px; margin: 0 20px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: green; border-radius: 50%;'>
+							<p>Consumer</p>
+						</div>
+						<p style='height: 70px; width: 100px; position: fixed; left: 510px; top: 100px; color: red;'>Message</p>
+						<h2 style='position: absolute; top: -100px;'>Consuming</h2>
+					</div>
+				</section>
+<!-- 9 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<img style='height: 30px; margin: 0 0 0 40px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: brown;'>
+							<p>Queue</p>
+						</div>
+						<img style='height: 30px; margin: 0 20px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: green; border-radius: 50%;'>
+							<p>Consumer</p>
+						</div>
+						<p style='height: 70px; width: 100px; position: fixed; right: 80px; top: 100px; color: red;'>Message</p>
+						<h2 style='position: absolute; top: -100px;'>Consuming</h2>
+					</div>
+				</section>
+<!-- 10 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<img style='height: 30px; margin: 0 0 0 40px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: brown;'>
+							<p>Queue</p>
+						</div>
+						<img style='height: 30px; margin: 0 20px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 100px; width: 200px; background-color: green; border-radius: 50%;'>
+							<p>Consumer</p>
+						</div>
+					</div>
+				</section>
+<!-- 11 -->
+				<section data-transition="fade-in fade-out">
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+				</section>
+<!-- 12 -->
+				<section data-auto-animate data-transition="fade-in fade-out">
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<p style='height: 70px; width: 100px; position: fixed; left: 80px; top: 50px; color: red;'>Message</p>
+					<p style='height: 70px; width: 100px; position: fixed; left: 80px; top: 70px; color: red;'>Message</p>
+				</section>
+<!-- 13 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<p style='height: 70px; width: 100px; position: fixed; left: 310px; top: 50px; color: red;'>Message</p>
+					<p style='height: 70px; width: 100px; position: fixed; left: 310px; top: 70px; color: red;'>Message</p>
+				</section>
+<!-- 14 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<p style='height: 70px; width: 100px; position: fixed; left: 520px; top: -30px; color: red;'>Message</p>
+					<p style='height: 70px; width: 100px; position: fixed; left: 520px; top: 70px; color: red;'>Message</p>
+				</section>
+<!-- 15 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<p style='height: 70px; width: 100px; position: fixed; right: 80px; top: -30px; color: red;'>Message</p>
+					<p style='height: 70px; width: 100px; position: fixed; right: 80px; top: 70px; color: red;'>Message</p>
+				</section>
+<!-- 16 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+				</section>
+<!-- 17 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<p style='font-size: 16px; position: fixed; left: 440px; top: 50px; color: white;'>Binding</p>
+					<p style='font-size: 16px; position: fixed; left: 440px; top: 90px; color: white;'>binding key</p>
+				</section>
+<!-- 18 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+				</section>
+<!-- 19 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<p style='position: fixed; left: 50px; top: 70px; color: red;'>Message</p>
+					<p style='font-size: 22px; position: fixed; left: 55px; top: 105px; color: white;'>routing key</p>
+					<p style='font-size: 16px; position: fixed; left: 420px; top: -40px; color: white;'>binding key</p>
+				</section>
+<!-- 20 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<p style='position: fixed; left: 350px; top: 70px; color: red;'>Message</p>
+					<p style='font-size: 22px; position: fixed; left: 355px; top: 105px; color: white;'>routing key</p>
+					<p style='font-size: 16px; position: fixed; left: 420px; top: -40px; color: white;'>binding key</p>
+				</section>
+<!-- 21 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<p style='position: fixed; left: 550px; top: -40px; color: red;'>Message</p>
+					<p style='font-size: 22px; position: fixed; left: 555px; top: -5px; color: white;'>routing key</p>
+					<p style='font-size: 16px; position: fixed; left: 420px; top: -40px; color: white;'>binding key</p>
+				</section>
+<!-- 22 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<p style='position: fixed; left: 800px; top: -40px; color: red;'>Message</p>
+					<p style='font-size: 22px; position: fixed; left: 805px; top: -5px; color: white;'>routing key</p>
+					<p style='font-size: 16px; position: fixed; left: 420px; top: -40px; color: white;'>binding key</p>
+				</section>
+<!-- 23 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+				</section>
+<!-- 24 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<div>
+						<p style='position: fixed; left: 50px; top: 70px; color: red;'>Message</p>
+						<p style='position: fixed; left: 50px; top: 70px; color: red;'>Message</p>
+						<p style='position: fixed; left: 50px; top: 70px; color: red;'>Message</p>
+					</div>
+					<p style='position: fixed; left: 250px; top: -100px; color: pink;'>Fanout</p>
+				</section>
+<!-- 25 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<div>
+						<p style='position: fixed; left: 300px; top: 70px; color: red;'>Message</p>
+						<p style='position: fixed; left: 300px; top: 70px; color: red;'>Message</p>
+						<p style='position: fixed; left: 300px; top: 70px; color: red;'>Message</p>
+					</div>
+					<p style='position: fixed; left: 250px; top: -100px; color: pink;'>Fanout</p>
+				</section>
+<!-- 26 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<div>
+						<p style='position: fixed; left: 550px; top: -50px; color: red;'>Message</p>
+						<p style='position: fixed; left: 550px; top: 70px; color: red;'>Message</p>
+						<p style='position: fixed; left: 550px; top: 200px; color: red;'>Message</p>
+					</div>
+ 					<p style='position: fixed; left: 250px; top: -100px; color: pink;'>Fanout</p>
+				</section>
+<!-- 27 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<div>
+						<p style='position: fixed; left: 800px; top: -50px; color: red;'>Message</p>
+						<p style='position: fixed; left: 800px; top: 70px; color: red;'>Message</p>
+						<p style='position: fixed; left: 800px; top: 200px; color: red;'>Message</p>
+					</div>
+ 					<p style='position: fixed; left: 250px; top: -100px; color: pink;'>Fanout</p>
+				</section>
+<!-- 28 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+ 					<p style='position: fixed; left: 250px; top: -100px; color: pink;'>Fanout</p>
+				</section>
+<!-- 29 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<div>
+						<p style='position: fixed; left: 50px; top: 70px; color: red;'>Message</p>
+						<p style='font-size: 22px; position: fixed; left: 55px; top: 110px; color: white;'>routing key = 'AAA'</p>
+					</div>
+					<p style='font-size: 16px; position: fixed; left: 380px; top: -40px; color: white;'>binding key = 'AAA'</p>
+ 					<p style='position: fixed; left: 250px; top: -140px; color: pink;'>Direct</p>
+ 					<p style='font-size: 22px; position: fixed; left: 180px; top: -100px; color: pink;'>Routing key = binding key</p>
+				</section>
+<!-- 30 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<div>
+						<p style='position: fixed; left: 300px; top: 70px; color: red;'>Message</p>
+						<p style='font-size: 22px; position: fixed; left: 305px; top: 110px; color: white;'>routing key = 'AAA'</p>
+					</div>
+					<p style='font-size: 16px; position: fixed; left: 380px; top: -40px; color: white;'>binding key = 'AAA'</p>
+ 					<p style='position: fixed; left: 250px; top: -140px; color: pink;'>Direct</p>
+ 					<p style='font-size: 22px; position: fixed; left: 180px; top: -100px; color: pink;'>Routing key = binding key</p>
+				</section>
+<!-- 31 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<div>
+						<p style='position: fixed; left: 520px; top: -40px; color: red;'>Message</p>
+						<p style='font-size: 22px; position: fixed; left: 525px; top: 0px; color: white;'>routing key = 'AAA'</p>
+					</div>
+					<p style='font-size: 16px; position: fixed; left: 380px; top: -40px; color: white;'>binding key = 'AAA'</p>
+ 					<p style='position: fixed; left: 250px; top: -140px; color: pink;'>Direct</p>
+ 					<p style='font-size: 22px; position: fixed; left: 180px; top: -100px; color: pink;'>Routing key = binding key</p>
+				</section>
+<!-- 32 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<div>
+						<p style='position: fixed; left: 780px; top: -40px; color: red;'>Message</p>
+						<p style='font-size: 22px; position: fixed; left: 785px; top: 0px; color: white;'>routing key = 'AAA'</p>
+					</div>
+					<p style='font-size: 16px; position: fixed; left: 380px; top: -40px; color: white;'>binding key = 'AAA'</p>
+ 					<p style='position: fixed; left: 250px; top: -140px; color: pink;'>Direct</p>
+ 					<p style='font-size: 22px; position: fixed; left: 180px; top: -100px; color: pink;'>Routing key = binding key</p>
+				</section>
+<!-- 33 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+	  				<div>
+						<p style='position: fixed; left: 40px; top: 70px; color: red;'>Message</p>
+						<p style='font-size: 22px; position: fixed; left: 45px; top: 110px; color: white;'>routing key = 'red.*'</p>
+					</div>
+					<p style='font-size: 16px; position: fixed; left: 380px; top: 200px; color: white;'>binding key = 'red.green'</p>
+ 					<p style='position: fixed; left: 250px; top: -140px; color: pink;'>Topic</p>
+ 					<p style='font-size: 22px; position: fixed; left: 230px; top: -95px; color: pink;'>partial match</p>
+				</section>
+<!-- 34 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+	  				<div>
+						<p style='position: fixed; left: 240px; top: 70px; color: red;'>Message</p>
+						<p style='font-size: 22px; position: fixed; left: 245px; top: 110px; color: white;'>routing key = 'red.*'</p>
+					</div>
+					<p style='font-size: 16px; position: fixed; left: 380px; top: 200px; color: white;'>binding key = 'red.green'</p>
+ 					<p style='position: fixed; left: 250px; top: -140px; color: pink;'>Topic</p>
+ 					<p style='font-size: 22px; position: fixed; left: 230px; top: -95px; color: pink;'>partial match</p>
+				</section>
+<!-- 35 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+	  				<div>
+						<p style='position: fixed; left: 520px; top: 190px; color: red;'>Message</p>
+						<p style='font-size: 22px; position: fixed; left: 525px; top: 230px; color: white;'>routing key = 'red.*'</p>
+					</div>
+					<p style='font-size: 16px; position: fixed; left: 380px; top: 200px; color: white;'>binding key = 'red.green'</p>
+ 					<p style='position: fixed; left: 250px; top: -140px; color: pink;'>Topic</p>
+ 					<p style='font-size: 22px; position: fixed; left: 230px; top: -95px; color: pink;'>partial match</p>
+				</section>
+<!-- 36 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+	  				<div>
+						<p style='position: fixed; left: 760px; top: 190px; color: red;'>Message</p>
+						<p style='font-size: 22px; position: fixed; left: 765px; top: 230px; color: white;'>routing key = 'red.*'</p>
+					</div>
+					<p style='font-size: 16px; position: fixed; left: 380px; top: 200px; color: white;'>binding key = 'red.green'</p>
+ 					<p style='position: fixed; left: 250px; top: -140px; color: pink;'>Topic</p>
+ 					<p style='font-size: 22px; position: fixed; left: 230px; top: -95px; color: pink;'>partial match</p>
+				</section>
+<!-- 37 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'>Exchange</p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>Queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+ 					<p style='position: fixed; left: 250px; top: -140px; color: pink;'>Header</p>
+ 					<p style='font-size: 22px; position: fixed; left: 130px; top: -95px; color: pink;'>message header instead of routing key</p>
+				</section>
+<!-- 38 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'></p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"A" queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"B" queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"C" queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+ 					<p style='position: fixed; left: 100px; top: -140px; color: pink;'>Default (nameless) exchange</p>
+					<p style='font-size: 22px; position: fixed; left: 130px; top: -95px; color: pink;'>routing key = queue name</p>
+				</section>
+<!-- 39 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'></p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"A" queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"B" queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"C" queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<div>
+						<p style='position: fixed; left: 50px; top: 70px; color: red;'>Message</p>
+						<p style='font-size: 22px; position: fixed; left: 55px; top: 110px; color: white;'>routing key = 'B'</p>
+					</div>
+ 					<p style='position: fixed; left: 100px; top: -140px; color: pink;'>Default (nameless) exchange</p>
+					<p style='font-size: 22px; position: fixed; left: 130px; top: -95px; color: pink;'>routing key = queue name</p>
+				</section>
+<!-- 40 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'></p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"A" queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"B" queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"C" queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<div>
+						<p style='position: fixed; left: 250px; top: 70px; color: red;'>Message</p>
+						<p style='font-size: 22px; position: fixed; left: 255px; top: 110px; color: white;'>routing key = 'B'</p>
+					</div>
+ 					<p style='position: fixed; left: 100px; top: -140px; color: pink;'>Default (nameless) exchange</p>
+					<p style='font-size: 22px; position: fixed; left: 130px; top: -95px; color: pink;'>routing key = queue name</p>
+				</section>
+<!-- 41 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'></p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"A" queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"B" queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"C" queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<div>
+						<p style='position: fixed; left: 520px; top: 70px; color: red;'>Message</p>
+						<p style='font-size: 22px; position: fixed; left: 525px; top: 110px; color: white;'>routing key = 'B'</p>
+					</div>
+ 					<p style='position: fixed; left: 100px; top: -140px; color: pink;'>Default (nameless) exchange</p>
+					<p style='font-size: 22px; position: fixed; left: 130px; top: -95px; color: pink;'>routing key = queue name</p>
+				</section>
+<!-- 42 -->
+				<section data-auto-animate>
+					<div style='display: flex; justify-content: space-between; align-items: center; height: 200px; width: 100%;'>
+						<div style='height: 100px; width: 200px; background-color: blue; border-radius: 50%;'>
+							<p>Producer</p>
+						</div>
+						<img style='height: 30px; margin: 0 40px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						<div style='height: 125px; width: 125px; background-color: pink; display: flex; justify-content: center; align-items: center;'>
+							<p style='font-size: 32px;'></p>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 250px;'>
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 30px;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"A" queue</p>
+							</div>
+							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"B" queue</p>
+							</div>
+  							<div style='height: 100px; width: 200px; background-color: brown; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+								<p>"C" queue</p>
+							</div>
+						</div>
+						<div style='display: flex; flex-direction: column; justify-content: space-around; height: 340px;'>
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+							<img style='height: 20px; margin: 0 10px 0 0;' src="https://i.pinimg.com/originals/ef/f1/96/eff196d72026ea725d43d3241c5d5e7c.png" alt='arrow' />
+						</div>
+						<div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						  <div style='height: 100px; width: 200px; background-color: green; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 10px 0;'>
+							<p>Consumer</p>
+						  </div>
+						</div>
+					</div>
+					<div>
+						<p style='position: fixed; left: 780px; top: 70px; color: red;'>Message</p>
+						<p style='font-size: 22px; position: fixed; left: 785px; top: 110px; color: white;'>routing key = 'B'</p>
+					</div>
+ 					<p style='position: fixed; left: 100px; top: -140px; color: pink;'>Default (nameless) exchange</p>
+					<p style='font-size: 22px; position: fixed; left: 130px; top: -95px; color: pink;'>routing key = queue name</p>
+				</section>
+<!-- 43 -->
+				<section>
+					<h1>Core concepts</h1>
+					<ul>
+						<li><b>Producer</b> emits messages to <b>exchange</b></li>
+						<li><b>Consumer</b> receives messages from <b>queue</b></li>
+						<li><b>Binding</b> connects an exchange with a queue using <b>binding key</b></li
+						>
+						<li>Exchange compares <b>routing key</b> with binding key</li>
+					</ul>
+				</section>
+<!-- 44 -->
+				<section>
+					<h1>Core concepts</h1>
+					<ul>
+						<li>Messages distribution depends on <b>exchange type</b></li>
+						<li>Exchange types: fanout, direct, topic and headers</li>
+					</ul>
+				</section>
+<!-- 45 -->
+				<section>
+					<h1>Core concepts</h1>
+					<ul>
+						<li><b>Default (nameless) exchange</b></li>
+						<li>Special exchange created by RabbitMQ</li>
+						<li>Compares routing key with queue name</li>
+						<li>Indirectly allows sending directly to queues</li>
+					</ul>
+				</section>
+<!-- 46 -->
+				<section>
+					<h1>Official site:</h1>
+					<a href='https://www.rabbitmq.com'>https://www.rabbitmq.com</a>
+					<br>
+					<p><code>npm install amqplib</code></p>
+				</section>
+<!-- 47 -->
+				<section >
+					<h4>Publisher JS code</h4>
+					<pre style='height: 650px; width: 1000px;'><code>
+var amqp = require('amqplib/callback_api');
+	
+amqp.connect('amqp://localhost', function(error0, connection) {
+  if (error0) throw error0;
+  connection.createChannel(function(error1, channel) {
+		if (error1) throw error1;
+
+		var queue = 'hello';
+		var msg = 'Hello World!';
+	
+		channel.assertQueue(queue, { durable: false });
+		channel.sendToQueue(queue, Buffer.from(msg));
+
+		console.log(" [x] Sent %s", msg);
+  });
+  setTimeout(function() {
+    connection.close();
+    process.exit(0);
+  }, 500);
+});</code></pre>
+				</section>
+				<section >
+					<h4>Consumer JS code</h4>
+					<pre style='height: 650px; width: 1100px;'><code>
+var amqp = require('amqplib/callback_api');
+amqp.connect('amqp://localhost', function(error0, connection) {
+    if (error0) throw error0;
+    connection.createChannel(function(error1, channel) {
+      if (error1) throw error1;
+
+      var queue = 'hello';
+      channel.assertQueue(queue, { durable: false });
+
+      console.log(" [*] Waiting for messages in %s. CTRL+C for exit", queue);
+      channel.consume(queue, function(msg) {
+         console.log(" [x] Received %s", msg.content.toString());
+      }, {
+        noAck: true
+      });
+    });
+});</code></pre>
+				</section>
+<!-- 48 -->
+				<section>
+					<h1>Let's Coding</h1>
+				</section>
+			</div>
+		</div>
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>

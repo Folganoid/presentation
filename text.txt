@@ -1,0 +1,78 @@
+0
+RabbitMQ is an open-source distributed message-broker that originally implemented the Advanced Message Queuing Protocol (AMQP) and has since been extended with a plug-in architecture to support Streaming Text Oriented Messaging Protocol (STOMP), MQ Telemetry Transport (MQTT), and other protocols.
+
+1
+It was developed in 2007 and written in the erlang programming language which it self is famous for powering the open telecom platform
+
+2
+Rabbit implements Advanced Message Queuing Protocol;
+AMQP standardized messaging using producers, Broker and Consumers;
+Messaging increases loose coupling and scalability
+
+3
+How it is working:
+We have a producer and consumer. 
+
+4
+There is a queue between them. 
+The producer sent the message to the queue. He never uses queue directly. Instead he uses an exchange.
+
+5
+Publishing message head to the exchange.
+
+7
+the exchange forward message to queue
+
+8
+Consumer pick up message from the queue,... 
+
+9-10
+...consume and processing it.
+
+11
+In a more complex application we can have matchable queues
+
+12-16
+Now when exchange recieve a message he sent it to selected queues.
+
+17-18
+An exchange is binding with an queue by binding key.
+
+19
+To send a message producer needs to specify a routing key.
+
+20-23
+Exchange compare two keys depends on the type of exchange and sends it further down the chain
+
+24-28
+A fanout exchange copies and routes a received message to all queues that are bound to it regardless of routing keys or patterns. The keys provided will simply be ignored.
+
+29-32
+The routing in direct exchange is simple — a message goes to the queues whose binding key exactly matches the routing key of the message.
+The direct exchange type is useful to distinguish messages published to the same exchange using a simple string identifier.
+
+33-36
+Topic exchange is similar to direct exchange, but the routing is done according to the routing pattern. Instead of using fixed routing key, it uses wildcards. Messages are routed to one or many queues based on a matching between a message routing key and pattern. The routing key must consist of list of words delimited by a period “.”.
+
+37
+Finaly a headers exchange routes messages based on arguments containing headers and optional values. It uses the message header attributes for routing.
+
+38-42
+On balance, with Default Exchange, An unnamed, otherwise known as a default trade, has been pre-declared as a direct trade. Usually you should use an empty string for this. When the client or user chooses an exchange, the so called default message, then it is delivered to the queue with the same name, i.e. the routing key. On the whole, through the routing key which is the same as the queue name, each subsequent queue is immediately tied to a default exchange.
+
+43
+Core concepts:
+Producer emits messages to exchange;
+Consumer receives messages from queue;
+Binding connects an exchange with a queue using binding key;
+Exchange compares routing key with binding key;
+
+44
+Messages distribution depends on exchange type;
+Exchange types: fanout, direct, topic and headers;
+
+45
+Default (nameless) exchange
+Special exchange created by RabbitMQ
+Compares routing key with queue name
+Indirectly allows sending directly to queues
